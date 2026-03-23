@@ -1,0 +1,45 @@
+[project]
+name = "quantsandbox"
+version = "0.1.0"
+description = "Trading simulation sandbox with backtesting, async job processing, and ML predictions"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "sqlalchemy>=2.0.36",
+    "alembic>=1.14.0",
+    "psycopg2-binary>=2.9.10",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "celery[redis]>=5.4.0",
+    "numpy>=2.1.0",
+    "pandas>=2.2.0",
+    "yfinance>=0.2.48",
+    "scikit-learn>=1.6.0",
+    "streamlit>=1.40.0",
+    "plotly>=5.24.0",
+    "httpx>=0.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "httpx>=0.28.0",
+    "ruff>=0.8.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/services/ml_predictor.py" = ["N806"]  # ML convention: X for feature matrix
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
